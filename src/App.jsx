@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
+import ArticleList from "../Components/ArticleList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // state for storing article
+  const [articles, setArticles] = useState([]);
+  // state for loading
+  const [loading, setLoading] = useState(true);
+  // state for errors
+  const [error, setError] = useState(null);
+
+  // fetch articles from the API
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/articles")
+      .then((response) => {
+        // console.log(response.data);
+        setArticles(response.data.articles); // article list
+        setLoading(false) //loading is set to false when getting data
+      })
+      .catch((err) => {
+        setError("Error getting articles");
+        setLoading(false);
+      });
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <h1>Northcoders News</h1>
+      {loading && <p>Loading articles</p>}
+      {error && <p>{error}</p>}
+
+      <ArticleList articles={articles} />
+    </div>
+  );
 }
 
-export default App
+export default App;
