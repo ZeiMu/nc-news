@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function ArticleList({articles}) {
     // console.log("ArticleList rendered")
@@ -9,6 +10,7 @@ function ArticleList({articles}) {
             <ul>
                 {articles.map((article) => (
                     <li key={article.id}>
+                        <Link to={`/article/${article.id}`}>{article.title}</Link>
                         <h3>{article.title}</h3>
                         <p>Author: {article.author}</p>
                         <p>{article.body}</p>
