@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom";
+
 import ArticleList from "../Components/ArticleList";
+import ViewIndividualArticle from "../Components/ViewIndividualArticle";
+
 
 function App() {
   // state for storing article
@@ -14,7 +18,9 @@ function App() {
   // fetch articles from the API
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/articles")
+      .get("https://my-nc-news-uce3.onrender.com/api/articles")
+      // .get("http://localhost:3000/api/articles")
+      
       .then((response) => {
         // console.log(response.data);
         setArticles(response.data.articles); // article list
@@ -32,8 +38,19 @@ function App() {
       {loading && <p>Loading articles</p>}
       {error && <p>{error}</p>}
 
-      <ArticleList articles={articles} />
-    </div>
+      <Routes>
+        <Route
+        path="/"
+        element={<ArticleList articles={articles} />} /> 
+      <Route
+      path="/article/:id"
+      element={<ViewIndividualArticle />}
+      />
+     </Routes>
+      </div>
+
+    //   <ArticleList articles={articles} />
+    // </div>
   );
 }
 
