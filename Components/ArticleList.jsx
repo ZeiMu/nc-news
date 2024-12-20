@@ -5,8 +5,8 @@ function ArticleList({articles}) {
     // console.log("ArticleList rendered")
     // console.log("Articles prop", articles)
     return (
-        <div>
-            <h2>Articles List</h2>
+        <div className='article list'>
+            <h2>Articles</h2>
             <ul>
                 {articles.map((article) => (
                     <li key={article.id}>
