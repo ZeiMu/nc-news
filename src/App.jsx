@@ -46,6 +46,7 @@ function App() {
       path="/article/:id"
       element={<ViewIndividualArticle />}
       />
+      <Route path="/article/:id" element={<ViewIndividualArticle />} />
      </Routes>
       </div>
 
@@ -55,3 +56,5 @@ function App() {
 }
 
 export default App;
+
+
